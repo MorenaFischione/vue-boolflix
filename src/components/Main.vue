@@ -4,7 +4,7 @@
       <Header @search="searchFilms"  />
     </div>
     <ul class="d-flex justify-content-space-beetween">
-      <li  v-for="(card, index) in cards" :key="index" class="my_card">
+      <li  v-for="(card, index) in filterFilm" :key="index" class="my_card">
         <p> Titolo: {{ card.title }} </p>
         <p> Titolo originale: {{ card.original_title }} </p>
         <p> Lingua: {{ card.original_language }} </p>
@@ -25,28 +25,35 @@ export default {
     Header,
   },
 
-  props: {
-    needle: String
-  },
+  // props: {
+  //   needle: String
+  // },
 
   data(){
     return {
       cards : [],
       films : [],
+      needle: "",
+
     }
   },
 
   methods:{
     searchFilms : function(needle) {
-      console.log(needle);
+      this.needle = needle;
     }
   },
 
   computed:{
 
-    // filterFilm : function(){
-    //   return [];
-    // }
+    filterFilm : function(){
+      let filmTemporaneoList = this.cards.filter(
+        (element) => {
+          return element.title.toLowerCase().includes(this.needle.toLowerCase())
+        }
+      );
+      return filmTemporaneoList;
+    }
 
   },
 
@@ -58,14 +65,6 @@ export default {
       console.log(result.results);
       const risultato = result.results;
       this.cards = risultato;
-
-      for (let i=0; i < this.cards.length; i++ ) {
-        console.log(this.cards[i]);
-        if (this.cards[i].includes(this.needle) ){
-          this.films.push(this.needle);
-        } console.log(self.films);
-      }
-
     });
   }
 
