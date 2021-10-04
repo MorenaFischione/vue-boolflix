@@ -16,12 +16,30 @@
                         <p v-else> Lingua: {{ movie.original_language }} </p>
                     </div>
                     <p :v-bind="arrotondarmento(movie.vote_average)"> {{ arrotondarmento(movie.vote_average) }} </p>
-                    <div>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star starColorata"></i>
-                      <i class="far fa-star starColorata"></i>
-                      <i class="far fa-star starColorata"></i>
-                      <i class="far fa-star starColorata"></i> 
+                    <div v-if="arrotondarmento(movie.vote_average) === 1">
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(movie.vote_average) === 2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(movie.vote_average) === 3">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(movie.vote_average) === 4">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(movie.vote_average) === 5">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
                     </div>
 
 
@@ -45,13 +63,31 @@
                         <p v-else> Lingua: {{ serie.original_language }} </p>
                     </div>
                     <p :v-bind="arrotondarmento(serie.vote_average)"> {{ arrotondarmento(serie.vote_average) }} </p>
-                    <!-- <div v-if="arrotondarmento(serie.vote_average) == 5">
-                      <i class="far fa-star" v-for="star in stars"></i>
-                    
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i>
-                      <i class="far fa-star"></i> 
-                    </div> -->
+                    <div v-if="arrotondarmento(serie.vote_average) === 1">
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(serie.vote_average) === 2">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(serie.vote_average) === 3">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(serie.vote_average) === 4">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
+                    <div v-if="arrotondarmento(serie.vote_average) === 5">
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                      <i class="fas fa-star"></i>
+                    </div>
 
               </div>
           </div>
@@ -78,6 +114,7 @@ export default {
         arrotondarmento : function(valore){
             let valoreModificato = valore * 5 / 10;
             let arrotondato = Math.ceil(valoreModificato);
+            console.log(arrotondato);
             return arrotondato;
         } 
         
@@ -96,7 +133,8 @@ export default {
     }
 
     .starColorata {
-      color: yellow;
+      filter:invert(100);
     }
+
 
 </style>
