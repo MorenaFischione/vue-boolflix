@@ -1,93 +1,69 @@
 <template>
   <div>
-    <div class="input-group mb-3">
-      <Header @search="searchFilms"  />
-    </div>
-    <ul class="d-flex justify-content-space-beetween">
-      <li  v-for="(card, index) in filterFilm" :key="index" class="my_card">
-        <p> Titolo: {{ card.title }} </p>
-        <p> Titolo originale: {{ card.original_title }} </p>
-        <p> Lingua: {{ card.original_language }} </p>
-        <p> Voto {{ card.vote_average }} </p>
-      </li>
-    </ul>
+      <h1 class="pb-3">Ricerca:</h1>
+      <div class="container">
+          <div class="row">
+              <div class="col-12 pb-3">
+                  <h2>Film</h2>
+              </div>
+              <div v-for="movie in movies" :key="movie.id" class="col-3 p-5">
+                    <div>
+                      <img :src="img + movie.poster_path" :alt="movie.title">
+                    </div>
+                    <p> Titolo: {{ movie.title }} </p>
+                    <p> Titolo originale: {{ movie.original_title }} </p>
+                    <div class="nazionalità">
+                        <img v-if="movie.original_language == 'it'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/64px-Flag_of_Italy.svg.png" alt="bandiera Italia">
+                        <img v-else-if="movie.original_language == 'en'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/64px-Flag_of_the_United_Kingdom_%283-5%29.svg.png" alt="bandiera Inglese" >
+                        <p v-else> Lingua: {{ movie.original_language }} </p>
+                    </div>
+                    <p> Voto {{ movie.vote_average }} </p>
+
+              </div>
+          </div>
+      </div>
+      <div class="container">
+          <div class="row">
+              <div class="col-12 pb-5">
+                  <h2>Serie TV</h2>
+              </div>
+              <div v-for="serie in tvSerie" :key="serie.id" class="col-3">
+                    <p> Titolo: {{ serie.title ? movie.title : serie.name }} </p>
+                    <p> Titolo originale: {{ serie.original_title ? serie.original_title : serie.original_name }}  </p>
+                    <div class="nazionalità">
+                        <img v-if="serie.original_language == 'it'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Flag_of_Italy.svg/64px-Flag_of_Italy.svg.png" alt="bandiera Italia">
+                        <img v-else-if="serie.original_language == 'en'" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg/64px-Flag_of_the_United_Kingdom_%283-5%29.svg.png" alt="bandiera Inglese" >
+                        <p v-else> Lingua: {{ serie.original_language }} </p>
+                    </div>
+                    <p> Voto {{ serie.vote_average }} </p>
+
+              </div>
+          </div>
+      </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import Header from './Header.vue'
-
 export default {
-  name: 'Main',
+    name: "Main",
 
-  components: {
-    Header,
-  },
-
-  // props: {
-  //   needle: String
-  // },
-
-  data(){
-    return {
-      cards : [],
-      films : [],
-      needle: "",
-
-    }
-  },
-
-  methods:{
-    searchFilms : function(needle) {
-      this.needle = needle;
-    }
-  },
-
-  computed:{
-
-    filterFilm : function(){
-      let filmTemporaneoList = this.cards.filter(
-        (element) => {
-          return element.title.toLowerCase().includes(this.needle.toLowerCase())
+    data: function(){
+        return{
+          img: "https://image.tmdb.org/t/p/w342",
         }
-      );
-      return filmTemporaneoList;
-    }
-
-  },
-
-  mounted() {
-    axios.get('https://api.themoviedb.org/3/search/movie?api_key=8f9f51349841d6d63cd953856f92bc86&query=ritorno+al+futuro&language=it-IT')
-    .then((response) => {
-      console.log(response.data);
-      const result = response.data;
-      console.log(result.results);
-      const risultato = result.results;
-      this.cards = risultato;
-    });
-  }
-
+    },
+    props: {
+        "movies": Array,
+        "tvSerie": Array,
+    }, 
 }
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
 
+<style lang="scss">
+    img {
+      width: 100px;
+    }
 
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  margin: 0 10px;
-  background-color: aquamarine;
-  border: 1px solid blue
-}
-a {
-  color: #42b983;
-}
 </style>
