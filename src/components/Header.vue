@@ -1,7 +1,7 @@
 <template>
-  <div class="mb-3 pe-5 ps-5 my_container">
+  <div class="pe-5 ps-5 my_container">
       <div>
-          <img src="https://toppng.com/uploads/preview/netflix-logo-vector-free-download-11574237114rh16slxpn2.png" alt="">
+          <img src="https://fontmeme.com/permalink/211005/bc001285b4acd0b4828e3939d958e947.png" alt="logo Boolflix">
       </div>
       <div class="my_ricerca">
         <input v-model.trim="needle" type="text" class="form-control" placeholder="Cerca un film" @keyup= "$emit('search', needle)">
@@ -29,6 +29,7 @@ export default {
     display: flex;
     justify-content: space-between;
     background-color: black;
+    padding: 30px;
 
     .my_ricerca {
         display: flex;
