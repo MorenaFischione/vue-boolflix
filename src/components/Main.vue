@@ -53,7 +53,7 @@
               </div>
               <div v-for="serie in tvSerie" :key="serie.id" class="col-3">
                     <div>
-                      <img :src="img + serie.poster_path" :alt="serie.title">
+                      <img :src="immagine(img , serie.poster_path)" :alt="serie.title">
                     </div>
                     <p> Titolo: {{ serie.title ? serie.title : serie.name }} </p>
                     <p> Titolo originale: {{ serie.original_title ? serie.original_title : serie.original_name }}  </p>
