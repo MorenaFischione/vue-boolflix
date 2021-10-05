@@ -7,7 +7,7 @@
                   <h2>Film</h2>
               </div>
               <div v-for="movie in movies" :key="movie.id" class="col-3 p-5">
-                    <img :src="img + movie.poster_path" :alt="movie.title">
+                    <img :src="immagine(img , movie.poster_path)" :alt="movie.title">
                     <p> Titolo: {{ movie.title }} </p>
                     <p> Titolo originale: {{ movie.original_title }} </p>
                     <div class="nazionalità">
@@ -102,7 +102,7 @@ export default {
     data: function(){
         return{
           img: "https://image.tmdb.org/t/p/w342",
-          imgGenerica: "https://ecommerce-platforms.com/wp-content/uploads/2014/08/Card-not-present.png",
+          imgGenerica: "",
         }
     },
     props: {
@@ -116,7 +116,19 @@ export default {
             let arrotondato = Math.ceil(valoreModificato);
             console.log(arrotondato);
             return arrotondato;
-        } 
+        },
+
+        immagine : (img, valore) => {
+          let imgUrl = img + valore;
+          if (valore == null) {
+            console.log(valore);
+            imgUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaBxwVbcQGmKgrq4rGNOVcrGjfxM4EgZj9Ow&usqp=CAU";
+            console.log(imgUrl);
+            return imgUrl;
+          } else {
+            return imgUrl;
+          }
+        }
         
     },
 
